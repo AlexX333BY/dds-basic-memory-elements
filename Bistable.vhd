@@ -12,9 +12,12 @@ end Bistable;
 architecture Behavioral of Bistable is
    signal bse, inv1, inv2: STD_LOGIC;
 begin
-   B1: INV port map (bse, inv1);
+   Main: process 
+   begin
+      inv1 <= not bse;
+      inv2 <= not inv1;
+      bse <= not inv2;
+   end process;
    nQ <= inv1;
-   B2: INV port map (inv1, inv2);
    Q <= inv2;
-   bse <= inv2;
 end Behavioral;
