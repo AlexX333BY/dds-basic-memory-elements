@@ -9,15 +9,10 @@ entity Bistable is
            nQ : out  STD_LOGIC);
 end Bistable;
 
-architecture Behavioral of Bistable is
-   signal bse, inv1, inv2: STD_LOGIC;
+architecture Structural of Bistable is
+   signal bse, invbse: STD_LOGIC;
 begin
-   Main: process 
-   begin
-      inv1 <= not bse;
-      inv2 <= not inv1;
-      bse <= not inv2;
-   end process;
-   nQ <= inv1;
-   Q <= inv2;
-end Behavioral;
+   B1: INV port map (I => bse, O => invbse);
+   B2: BUF port map (I => invbse, O => nQ);
+   B3: INV port map (I => invbse, O => Q);
+end Structural;
