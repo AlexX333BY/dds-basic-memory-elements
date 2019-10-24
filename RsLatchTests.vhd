@@ -42,10 +42,6 @@ BEGIN
           nQ => nQ_s
         );
 
-   Q_error <= Q_b xor Q_s;
-   nQ_error <= nQ_b xor nQ_s;
-   error <= Q_error or nQ_error;
-
    R_clock_process :process
    begin
       R <= '0';
@@ -62,4 +58,7 @@ BEGIN
       wait for clock_period*S_clock_multiplier/2;
    end process;
 
+   Q_error <= Q_b xor Q_s;
+   nQ_error <= nQ_b xor nQ_s;
+   error <= Q_error or nQ_error;
 END;

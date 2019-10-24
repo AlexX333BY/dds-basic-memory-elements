@@ -21,11 +21,6 @@ begin
 end Behavioral;
 
 architecture Structural of RsLatch is
-   component Buf1
-      Port ( I : in  STD_LOGIC;
-             O : out  STD_LOGIC);
-   end component;
-   
    signal rs, rsnors: STD_LOGIC;
 begin
    RS1: NOR2 port map (I0 => rs, I1 => S, O => rsnors);
