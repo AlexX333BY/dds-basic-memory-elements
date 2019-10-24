@@ -30,7 +30,7 @@ component RsLatch
           Q : out  STD_LOGIC);
 end component;
 
-signal dl, notd : STD_LOGIC;
+signal notd : STD_LOGIC;
 begin
    DL1: INV port map (I => D, O => notd);
    DL2: RsLatch port map (S => D, R => notd, nQ => nQ, Q => Q);
