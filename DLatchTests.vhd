@@ -18,8 +18,8 @@ ARCHITECTURE behavior OF DLatchTests IS
    signal D : std_logic := '0';
 
  	--Outputs
-   signal Q_b, Q_s : std_logic;
-   signal nQ_b, nQ_s : std_logic;
+   signal Q_b, Q_s, Q_d : std_logic;
+   signal nQ_b, nQ_s, nQ_d : std_logic;
    signal Q_error, nQ_error, error : std_logic;
    
    constant clock_period : time := 10 ns;
@@ -34,6 +34,12 @@ BEGIN
           D => D,
           Q => Q_s,
           nQ => nQ_s
+        );
+
+   DLatch_d: entity work.DLatch(Delayed) PORT MAP (
+          D => D,
+          Q => Q_d,
+          nQ => nQ_d
         );
 
    D_process :process

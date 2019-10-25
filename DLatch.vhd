@@ -31,7 +31,23 @@ component RsLatch
 end component;
 
 signal notd : STD_LOGIC;
+
+FOR DL2: RsLatch USE ENTITY work.RsLatch(Structural);
 begin
    DL1: INV port map (I => D, O => notd);
    DL2: RsLatch port map (S => D, R => notd, nQ => nQ, Q => Q);
 end Structural;
+
+architecture Delayed of DLatch is
+   signal dl : STD_LOGIC;
+   constant transport_delay: time := 1 ns;
+   constant inertial_delay: time := 1 ns;
+begin
+   Main : process (D)
+   begin
+      dl <= inertial D after inertial_delay;
+   end process;
+
+   Q <= transport dl after transport_delay;
+   nQ <= transport not dl after transport_delay;
+end Delayed;
