@@ -24,5 +24,5 @@ BEGIN
           nQ => nQ
         );
 
-   error <= Q xor nQ;
+   error <= Q and nQ;
 END;

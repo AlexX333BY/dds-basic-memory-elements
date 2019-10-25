@@ -10,7 +10,8 @@ entity Bistable is
 end Bistable;
 
 architecture Structural of Bistable is
-   signal bse, invbse: STD_LOGIC;
+   signal bse : STD_LOGIC := '0';
+   signal invbse : STD_LOGIC;
 begin
    B1: INV port map (I => bse, O => invbse);
    B2: BUF port map (I => invbse, O => nQ);
