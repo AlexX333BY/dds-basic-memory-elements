@@ -20,8 +20,8 @@ ARCHITECTURE behavior OF DELathTests IS
    signal E : std_logic := '0';
 
  	--Outputs
-   signal Q_b, Q_s : std_logic;
-   signal nQ_b, nQ_s : std_logic;
+   signal Q_b, Q_s, Q_d : std_logic;
+   signal nQ_b, nQ_s, nQ_d : std_logic;
    signal Q_error, nQ_error, error : std_logic;
  
    constant clock_period : time := 10 ns;
@@ -40,6 +40,13 @@ BEGIN
           E => E,
           Q => Q_s,
           nQ => nQ_s
+        );
+
+   DELatch_d: entity work.DELatch(Delayed) PORT MAP (
+          D => D,
+          E => E,
+          Q => Q_d,
+          nQ => nQ_d
         );
 
    D_process :process

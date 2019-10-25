@@ -34,9 +34,27 @@ component RsLatch
 end component;
 
 signal notd, se, re : STD_LOGIC;
+
+FOR DE4: RsLatch USE ENTITY work.RsLatch(Structural);
 begin
    DE1: INV port map (I => D, O => notd);
    DE2: AND2 port map (I0 => D, I1 => E, O => se);
    DE3: AND2 port map (I0 => notd, I1 => E, O => re);
    DE4: RsLatch port map (S => se, R => re, Q => Q, nQ => nQ);
 end Structural;
+
+architecture Delayed of DELatch is
+   signal del : STD_LOGIC;
+   constant transport_delay: time := 1 ns;
+   constant inertial_delay: time := 1 ns;
+begin
+   Main : process(D, E)
+   begin
+      if E = '1' then
+         del <= inertial D after inertial_delay;
+      end if;
+   end process;
+   
+   Q <= transport del after transport_delay;
+   nQ <= transport not del after transport_delay;
+end Delayed;
