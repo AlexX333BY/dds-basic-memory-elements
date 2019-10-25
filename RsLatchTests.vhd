@@ -20,8 +20,8 @@ ARCHITECTURE behavior OF RsLatchTests IS
    signal R : std_logic := '0';
 
  	--Outputs
-   signal nQ_b, nQ_s : std_logic;
-   signal Q_b, Q_s : std_logic;
+   signal nQ_b, nQ_s, nQ_d : std_logic;
+   signal Q_b, Q_s, Q_d : std_logic;
    signal Q_error, nQ_error, error : std_logic;
  
    constant clock_period : time := 10 ns;
@@ -40,6 +40,13 @@ BEGIN
           S => S,
           Q => Q_s,
           nQ => nQ_s
+        );
+
+   RsLatch_d: entity work.RsLatch(Delayed) PORT MAP (
+          R => R,
+          S => S,
+          Q => Q_d,
+          nQ => nQ_d
         );
 
    R_clock_process :process

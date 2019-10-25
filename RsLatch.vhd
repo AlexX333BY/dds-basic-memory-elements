@@ -15,7 +15,7 @@ architecture Behavioral of RsLatch is
    signal rs, rsnors: STD_LOGIC;
 begin
    rsnors <= rs nor S;
-   nq <= rsnors;
+   nQ <= rsnors;
    rs <= rsnors nor R;
    Q <= rs;
 end Behavioral;
@@ -28,3 +28,14 @@ begin
    RS3: NOR2 port map (I0 => rsnors, I1 => R, O => rs);
    RS4: BUF port map (I => rs, O => Q);
 end Structural;
+
+architecture Delayed of RsLatch is
+   signal rs, rsnors: STD_LOGIC;
+   constant transport_delay: time := 1 ns;
+   constant inertial_delay: time := 1 ns;
+begin
+   rsnors <= inertial rs nor S after inertial_delay;
+   rs <= inertial rsnors nor R after inertial_delay;
+   nQ <= transport rsnors after transport_delay;
+   Q <= transport rs after transport_delay;
+end Delayed;
